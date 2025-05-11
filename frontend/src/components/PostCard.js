@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 function PostCard({ post, userId, onDelete, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,7 +16,7 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
     setError(null);
 
     try {
-      await axios.delete(`/api/posts/${post._id}`, {
+      await api.delete(`/api/posts/${post._id}`, {
         headers: { "x-auth-token": localStorage.getItem("token") },
       });
       onDelete(post._id);
@@ -38,7 +38,7 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
     setError(null);
 
     try {
-      const res = await axios.put(
+      const res = await api.put(
         `/api/posts/${post._id}`,
         { content: content.trim() },
         { headers: { "x-auth-token": localStorage.getItem("token") } }

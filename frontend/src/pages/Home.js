@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import PostForm from "../components/PostForm";
 import PostCard from "../components/PostCard";
 
@@ -19,7 +19,7 @@ function Home() {
 
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("/api/posts", {
+        const res = await api.get("/api/posts", {
           headers: { "x-auth-token": authData.token },
         });
         setPosts(res.data);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 function AuthForm({ type }) {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ function AuthForm({ type }) {
 
     try {
       const url = type === "register" ? "/api/auth/register" : "/api/auth/login";
-      const res = await axios.post(url, formData);
+      const res = await api.post(url, formData);
       
       if (res.status === 200) {
         localStorage.setItem("auth_data", JSON.stringify(res.data.user));

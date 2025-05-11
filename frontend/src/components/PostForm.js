@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 function PostForm({ onPostCreated }) {
   const [content, setContent] = useState("");
@@ -69,7 +69,7 @@ function PostForm({ onPostCreated }) {
     if (image) formData.append("image", image);
 
     try {
-      const res = await axios.post("/api/posts", formData, {
+      const res = await api.post("/api/posts", formData, {
         headers: {
           "x-auth-token": localStorage.getItem("token"),
           "Content-Type": "multipart/form-data",
