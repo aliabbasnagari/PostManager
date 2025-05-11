@@ -17,10 +17,11 @@ router.post("/register", async (req, res) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: "1h" },
+      { expiresIn: "12h" },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        var {username, email, id} = user;
+        res.json({ user: {id, email, username, token} });
       }
     );
   } catch (err) {
@@ -43,10 +44,11 @@ router.post("/login", async (req, res) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: "1h" },
+      { expiresIn: "12h" },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        var {username, email, id} = user;
+        res.json({ user: {id, email, username, token} });
       }
     );
   } catch (err) {
