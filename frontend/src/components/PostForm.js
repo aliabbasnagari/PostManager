@@ -57,6 +57,8 @@ function PostForm({ onPostCreated }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    const authData = JSON.parse(localStorage.getItem("auth_data") || "null");
+    
     if (!validateForm()) {
       return;
     }
@@ -71,7 +73,7 @@ function PostForm({ onPostCreated }) {
     try {
       const res = await api.post("/api/posts", formData, {
         headers: {
-          "x-auth-token": localStorage.getItem("token"),
+          "x-auth-token": localStorage.getItem(authData.token),
           "Content-Type": "multipart/form-data",
         },
       });

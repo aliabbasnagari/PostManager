@@ -12,12 +12,14 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
       return;
     }
 
+    const authData = JSON.parse(localStorage.getItem("auth_data") || "null");
+
     setIsLoading(true);
     setError(null);
 
     try {
       await api.delete(`/api/posts/${post._id}`, {
-        headers: { "x-auth-token": localStorage.getItem("token") },
+        headers: { "x-auth-token": authData.token },
       });
       onDelete(post._id);
     } catch (err) {
@@ -41,7 +43,7 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
       const res = await api.put(
         `/api/posts/${post._id}`,
         { content: content.trim() },
-        { headers: { "x-auth-token": localStorage.getItem("token") } }
+        { headers: { "x-auth-token": authData.token } }
       );
       setIsEditing(false);
       onUpdate(res.data);
