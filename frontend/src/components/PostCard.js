@@ -35,6 +35,8 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
       setError("Content cannot be empty");
       return;
     }
+    
+    const authData = JSON.parse(localStorage.getItem("auth_data") || "null");
 
     setIsLoading(true);
     setError(null);
