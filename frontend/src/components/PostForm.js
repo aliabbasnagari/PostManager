@@ -73,7 +73,7 @@ function PostForm({ onPostCreated }) {
     try {
       const res = await api.post("/api/posts", formData, {
         headers: {
-          "x-auth-token": localStorage.getItem(authData.token),
+          "x-auth-token": authData.token,
           "Content-Type": "multipart/form-data",
         },
       });
