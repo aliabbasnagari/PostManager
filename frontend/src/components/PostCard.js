@@ -7,9 +7,6 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  console.log("POSTCARD: ", post);
-  console.log("POSTCARD: ", userId);
-
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this post?")) {
       return;

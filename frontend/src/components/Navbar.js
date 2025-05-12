@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isAuth, setIsAuth] = useState(!!localStorage.getItem("auth_data"));
-  const navigate = useNavigate();
 
   useEffect(() => {
     setIsAuth(!!localStorage.getItem("auth_data"));
@@ -12,7 +11,6 @@ function Navbar() {
   const logout = () => {
     localStorage.removeItem("auth_data");
     setIsAuth(false);
-    navigate("/login");
   };
 
   return (

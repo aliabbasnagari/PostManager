@@ -1,5 +1,12 @@
 const { dynamoDB } = require("../config/aws");
-const { PutCommand, ScanCommand, GetCommand, QueryCommand, DeleteCommand } = require("@aws-sdk/lib-dynamodb");
+const {
+  PutCommand,
+  ScanCommand,
+  GetCommand,
+  QueryCommand,
+  DeleteCommand,
+  UpdateCommand,
+} = require("@aws-sdk/lib-dynamodb");
 
 class Post {
   static async create({ userId, content, image }) {
@@ -16,6 +23,21 @@ class Post {
 
     await dynamoDB.send(new PutCommand(params));
     return params.Item;
+  }
+
+  static async update(id, { content }) {
+    const params = {
+      TableName: "Posts",
+      Key: { id },
+      UpdateExpression: "SET content = :content",
+      ExpressionAttributeValues: {
+        ":content": content,
+      },
+      ReturnValues: "ALL_NEW",
+    };
+
+    const { Attributes } = await dynamoDB.send(new UpdateCommand(params));
+    return Attributes;
   }
 
   static async findAll() {

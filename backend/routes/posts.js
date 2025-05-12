@@ -57,6 +57,30 @@ router.post("/", auth, upload.single("image"), async (req, res) => {
   }
 });
 
+router.put("/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { content } = req.body;
+
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+
+    // Ensure only the owner can update the post
+    if (post.userId !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+
+    const updatedPost = await Post.update(id, { content });
+
+    res.json(updatedPost);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
+
 router.delete("/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);

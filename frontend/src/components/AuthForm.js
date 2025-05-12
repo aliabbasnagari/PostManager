@@ -78,8 +78,6 @@ function AuthForm({ type }) {
         type === "register" ? "/api/auth/register" : "/api/auth/login";
       const res = await api.post(url, formData);
 
-      console.log(res, res.status);
-
       if (res.status === 200) {
         localStorage.setItem("auth_data", JSON.stringify(res.data.user));
         navigate("/");
