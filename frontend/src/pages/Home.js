@@ -16,12 +16,14 @@ function Home() {
       return;
     }
     setUser(authData);
+    console.log("HOME: ", authData);
 
     const fetchPosts = async () => {
       try {
         const res = await api.get("/api/posts", {
           headers: { "x-auth-token": authData.token },
         });
+        console.log("HOME: ", res.data);
         setPosts(res.data);
       } catch (err) {
         console.error(err);
@@ -38,6 +40,7 @@ function Home() {
         username: user.username,
       },
     };
+    console.log("HOME: ", postWithUser);
     setPosts([postWithUser, ...posts]);
   };
 
