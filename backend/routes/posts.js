@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("./auth");
+const auth = require("../middleware/auth");
 const Post = require("../models/Post");
 const User = require("../models/User");
 const multer = require("multer");
@@ -15,7 +15,7 @@ const upload = multer({
       cb(null, { fieldName: file.fieldname });
     },
     key: (req, file, cb) => {
-      cb(null, `public/${Date.now()}-${file.originalname}`);
+      cb(null, `${Date.now()}-${file.originalname}`);
     },
   }),
 });
