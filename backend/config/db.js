@@ -1,10 +1,11 @@
-const { dynamoDB } = require('./aws');
+const { dynamoDB } = require("./aws");
+const { ScanCommand } = require("@aws-sdk/lib-dynamodb");
 
 const connectDB = async () => {
   try {
-    // Test DynamoDB connection
-    await dynamoDB.scan({ TableName: 'Users' }).promise();
-    console.log('DynamoDB Connected Successfully');
+    const command = new ScanCommand({ TableName: "Users" });
+    await dynamoDB.send(command);
+    console.log("DynamoDB connected successfully");
   } catch (error) {
     console.error(`Error connecting to DynamoDB: ${error.message}`);
     process.exit(1);

@@ -1,62 +1,63 @@
-const { dynamoDB } = require('../config/aws');
+const { dynamoDB } = require("../config/aws");
+const { PutCommand, ScanCommand, GetCommand, QueryCommand, DeleteCommand } = require("@aws-sdk/lib-dynamodb");
 
 class Post {
   static async create({ userId, content, image }) {
     const params = {
-      TableName: 'Posts',
+      TableName: "Posts",
       Item: {
         id: Date.now().toString(),
         userId,
         content,
         image,
-        createdAt: new Date().toISOString()
-      }
+        createdAt: new Date().toISOString(),
+      },
     };
 
-    await dynamoDB.put(params).promise();
+    await dynamoDB.send(new PutCommand(params));
     return params.Item;
   }
 
   static async findAll() {
     const params = {
-      TableName: 'Posts'
+      TableName: "Posts",
     };
 
-    const result = await dynamoDB.scan(params).promise();
-    return result.Items;
+    const { Items } = await dynamoDB.send(new ScanCommand(params));
+    return Items || [];
   }
 
   static async findById(id) {
     const params = {
-      TableName: 'Posts',
-      Key: { id }
+      TableName: "Posts",
+      Key: { id },
     };
 
-    const result = await dynamoDB.get(params).promise();
-    return result.Item;
+    const { Item } = await dynamoDB.send(new GetCommand(params));
+    return Item || null;
   }
 
   static async findByUserId(userId) {
     const params = {
-      TableName: 'Posts',
-      IndexName: 'UserIdIndex',
-      KeyConditionExpression: 'userId = :userId',
+      TableName: "Posts",
+      IndexName: "UserIdIndex",
+      KeyConditionExpression: "userId = :userId",
       ExpressionAttributeValues: {
-        ':userId': userId
-      }
+        ":userId": userId,
+      },
     };
 
-    const result = await dynamoDB.query(params).promise();
-    return result.Items;
+    const { Items } = await dynamoDB.send(new QueryCommand(params));
+    return Items || [];
   }
 
   static async delete(id) {
     const params = {
-      TableName: 'Posts',
-      Key: { id }
+      TableName: "Posts",
+      Key: { id },
     };
 
-    await dynamoDB.delete(params).promise();
+    await dynamoDB.send(new DeleteCommand(params));
   }
 }
 
