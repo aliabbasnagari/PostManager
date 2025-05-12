@@ -34,7 +34,7 @@ function Home() {
     const postWithUser = {
       ...newPost,
       user: {
-        _id: user?.id,
+        id: user?.id,
         username: user.username,
       },
     };
@@ -42,12 +42,12 @@ function Home() {
   };
 
   const handlePostDeleted = (postId) => {
-    setPosts(posts.filter((post) => post._id !== postId));
+    setPosts(posts.filter((post) => post.id !== postId));
   };
 
   const handlePostUpdated = (updatedPost) => {
     setPosts(
-      posts.map((post) => (post._id === updatedPost._id ? updatedPost : post))
+      posts.map((post) => (post.id === updatedPost.id ? updatedPost : post))
     );
   };
 
@@ -56,7 +56,7 @@ function Home() {
       {user && <PostForm onPostCreated={handlePostCreated} />}
       {posts.map((post) => (
         <PostCard
-          key={post._id}
+          key={post.id}
           post={post}
           userId={user?.id}
           onDelete={handlePostDeleted}

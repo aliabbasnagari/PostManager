@@ -18,10 +18,10 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
     setError(null);
 
     try {
-      await api.delete(`/api/posts/${post._id}`, {
+      await api.delete(`/api/posts/${post.id}`, {
         headers: { "x-auth-token": authData.token },
       });
-      onDelete(post._id);
+      onDelete(post.id);
     } catch (err) {
       const errorMessage =
         err.response?.data?.message ||
@@ -45,7 +45,7 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
 
     try {
       const res = await api.put(
-        `/api/posts/${post._id}`,
+        `/api/posts/${post.id}`,
         { content: content.trim() },
         { headers: { "x-auth-token": authData.token } }
       );
@@ -65,7 +65,7 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
     <div className="bg-white p-6 rounded-lg shadow-md mb-4">
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-lg font-semibold">{post.user.username}</h3>
-        {post.user._id === userId && (
+        {post.user.id === userId && (
           <div>
             <button
               onClick={() => {
