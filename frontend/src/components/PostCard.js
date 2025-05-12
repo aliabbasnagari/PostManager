@@ -23,7 +23,9 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
       });
       onDelete(post._id);
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "Failed to delete post. Please try again.";
+      const errorMessage =
+        err.response?.data?.message ||
+        "Failed to delete post. Please try again.";
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -35,7 +37,7 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
       setError("Content cannot be empty");
       return;
     }
-    
+
     const authData = JSON.parse(localStorage.getItem("auth_data") || "null");
 
     setIsLoading(true);
@@ -50,7 +52,9 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
       setIsEditing(false);
       onUpdate(res.data);
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "Failed to update post. Please try again.";
+      const errorMessage =
+        err.response?.data?.message ||
+        "Failed to update post. Please try again.";
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -72,14 +76,18 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
                 }
               }}
               disabled={isLoading}
-              className={`text-indigo-600 mr-2 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`text-indigo-600 mr-2 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              {isEditing ? 'Cancel' : 'Edit'}
+              {isEditing ? "Cancel" : "Edit"}
             </button>
             <button
               onClick={handleDelete}
               disabled={isLoading}
-              className={`text-red-600 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`text-red-600 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               Delete
             </button>
@@ -113,9 +121,9 @@ function PostCard({ post, userId, onDelete, onUpdate }) {
               onClick={handleUpdate}
               disabled={isLoading}
               className={`bg-indigo-600 text-white px-4 py-2 rounded-md mr-2 
-                ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
             >
-              {isLoading ? 'Saving...' : 'Save'}
+              {isLoading ? "Saving..." : "Save"}
             </button>
           </div>
         </div>

@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../middleware/auth");
-const Post = require("../models/Post");
-const User = require("../models/User");
+const auth = require("./auth");
+const Post = require("./post");
+const User = require("./user");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-const { s3Client } = require("../config/aws");
+const { s3Client } = require("./aws");
 
 const upload = multer({
   storage: multerS3({
@@ -15,7 +15,7 @@ const upload = multer({
       cb(null, { fieldName: file.fieldname });
     },
     key: (req, file, cb) => {
-      cb(null, `${Date.now()}-${file.originalname}`);
+      cb(null, `public/${Date.now()}-${file.originalname}`);
     },
   }),
 });
