@@ -12,7 +12,7 @@ function Home() {
   useEffect(() => {
     const authData = JSON.parse(localStorage.getItem("auth_data") || "null");
     if (!authData) {
-      navigate("/login"); 
+      navigate("/login");
       return;
     }
     setUser(authData);
@@ -35,8 +35,8 @@ function Home() {
       ...newPost,
       user: {
         _id: user?.id,
-        username: user.username
-      }
+        username: user.username,
+      },
     };
     setPosts([postWithUser, ...posts]);
   };

@@ -15,7 +15,7 @@ const upload = multer({
       cb(null, { fieldName: file.fieldname });
     },
     key: (req, file, cb) => {
-      cb(null, `${Date.now()}-${file.originalname}`);
+      cb(null, `public/${Date.now()}-${file.originalname}`);
     },
   }),
 });
