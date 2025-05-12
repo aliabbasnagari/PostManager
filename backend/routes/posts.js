@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("./auth");
-const Post = require("./post");
-const User = require("./user");
+const Post = require("../models/Post");
+const User = require("../models/User");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-const { s3Client } = require("./aws");
+const { s3Client } = require("../config/aws");
 
 const upload = multer({
   storage: multerS3({
