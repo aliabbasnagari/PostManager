@@ -23,6 +23,8 @@ This README provides step-by-step instructions to deploy PostManager on AWS infr
 - **Storage**: Amazon S3 for file/image uploads
 - **Security**: IAM roles, Security Groups, and least-privilege policies
 
+![Architecture Digram](https://github.com/aliabbasnagari/PostManager/blob/main/raw/adigram.png)
+
 ## Step-by-Step Deployment Instructions
 
 ### 1. Set Up the GitHub Repository
